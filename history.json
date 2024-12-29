@@ -1,0 +1,42 @@
+[
+    {
+        "courses": [
+            {
+                "course": "ff",
+                "credit": "2",
+                "grade": "A"
+            }
+        ],
+        "sgpa": 10.0
+    },
+    {
+        "courses": [
+            {
+                "course": "climate ",
+                "credit": "3",
+                "grade": "A"
+            },
+            {
+                "course": "cc",
+                "credit": "1",
+                "grade": "B"
+            },
+            {
+                "course": "dsa",
+                "credit": "3",
+                "grade": "B-"
+            }
+        ],
+        "sgpa": 8.43
+    },
+    {
+        "courses": [
+            {
+                "course": "modern",
+                "credit": "3",
+                "grade": "A"
+            }
+        ],
+        "sgpa": 10.0
+    }
+]

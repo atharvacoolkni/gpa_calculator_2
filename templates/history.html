@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGPA History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>SGPA History</h1>
+    </header>
+
+    <div class="container">
+        <a class="back-button" href="{{ url_for('index') }}">← Back to Home</a>
+        <div class="history-container">
+            {% for entry in history %}
+            <div class="history-entry">
+                <h3>SGPA: {{ entry['sgpa'] }}</h3>
+                <div class="courses">
+                    {% for course in entry['courses'] %}
+                    <div class="course-card">
+                        <div class="course-info">
+                            <span>Course: {{ course['course'] }}</span>
+                            <span>Credits: {{ course['credit'] }}</span>
+                            <span>Grade: {{ course['grade'] }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+

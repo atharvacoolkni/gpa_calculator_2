@@ -1,0 +1,53 @@
+[
+    {
+        "courses": [
+            {
+                "course_name": "ggg",
+                "credits": 5.0,
+                "grade": "B",
+                "points": 8
+            },
+            {
+                "course_name": "climate chagne",
+                "credits": 3.0,
+                "grade": "B",
+                "points": 8
+            }
+        ],
+        "sgpa": 8.0
+    },
+    {
+        "courses": [
+            {
+                "course_name": "ggg",
+                "credits": 5.0,
+                "grade": "B",
+                "points": 8
+            },
+            {
+                "course_name": "climate chagne",
+                "credits": 3.0,
+                "grade": "B",
+                "points": 8
+            }
+        ],
+        "sgpa": 8.0
+    },
+    {
+        "courses": [
+            {
+                "course_name": "ggg",
+                "credits": 5.0,
+                "grade": "B",
+                "points": 8
+            },
+            {
+                "course_name": "climate chagne",
+                "credits": 3.0,
+                "grade": "B",
+                "points": 8
+            }
+        ],
+        "sgpa": 8.0
+    }
+]
