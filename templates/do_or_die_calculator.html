@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do or Die Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('index') }}">SGPA Calculator</a>
+            <a href="{{ url_for('do_or_die_calculator') }}">Do or Die Calculator</a>
+            <a href="{{ url_for('about_us') }}">About Us</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Do or Die Calculator</h1>
+        <p style="font-size: 1.2em; color: #555; text-align: center;">
+            Congratulations! You’ve joined the elite top 1% of people who can’t achieve their goals. 
+            But hey, miracles happen, right?
+        </p>
+
+        <form method="POST" action="/do-or-die">
+            <!-- Section for confirmed courses -->
+            <h2>Confirmed Grades</h2>
+            <div id="confirmed-courses">
+                <div class="course-row">
+                    <label>Course: <input type="text" name="confirmed_course"></label>
+                    <label>Credit: <input type="number" name="confirmed_credit"></label>
+                    <label>Grade:
+                        <select name="confirmed_grade">
+                            <option value="A">A</option>
+                            <option value="A-">A-</option>
+                            <option value="B">B</option>
+                            <option value="B-">B-</option>
+                            <option value="C">C</option>
+                            <option value="C-">C-</option>
+                            <option value="D">D</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <button type="button" onclick="addConfirmedCourse()">Add Confirmed Course</button>
+
+            <!-- Section for unknown courses -->
+            <h2>Unknown Grades</h2>
+            <div id="unknown-courses">
+                <div class="course-row">
+                    <label>Course: <input type="text" name="unknown_course"></label>
+                    <label>Credit: <input type="number" name="unknown_credit"></label>
+                </div>
+            </div>
+            <button type="button" onclick="addUnknownCourse()">Add Unknown Course</button>
+
+            <!-- Required SGPA -->
+            <h2>Required SGPA</h2>
+            <label>Required SGPA: <input type="number" name="required_sgpa" step="0.01" required></label>
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        <!-- Error or results display -->
+        {% if error_message %}
+        <div style="color: red; font-weight: bold;">
+            {{ error_message|safe }}
+        </div>
+        {% endif %}
+
+        {% if required_grades %}
+        <h2>Required Grades</h2>
+        <ul>
+            {% for credit, grade in required_grades %}
+            <li>{{ credit }} credits: Required Grade = {{ grade }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </main>
+
+    <script>
+        function addConfirmedCourse() {
+            const confirmedDiv = document.getElementById('confirmed-courses');
+            const newCourse = document.createElement('div');
+            newCourse.classList.add('course-row');
+            newCourse.innerHTML = `
+                <label>Course: <input type="text" name="confirmed_course"></label>
+                <label>Credit: <input type="number" name="confirmed_credit"></label>
+                <label>Grade:
+                    <select name="confirmed_grade">
+                        <option value="A">A</option>
+                        <option value="A-">A-</option>
+                        <option value="B">B</option>
+                        <option value="B-">B-</option>
+                        <option value="C">C</option>
+                        <option value="C-">C-</option>
+                        <option value="D">D</option>
+                    </select>
+                </label>
+            `;
+            confirmedDiv.appendChild(newCourse);
+        }
+
+        function addUnknownCourse() {
+            const unknownDiv = document.getElementById('unknown-courses');
+            const newCourse = document.createElement('div');
+            newCourse.classList.add('course-row');
+            newCourse.innerHTML = `
+                <label>Course: <input type="text" name="unknown_course"></label>
+                <label>Credit: <input type="number" name="unknown_credit"></label>
+            `;
+            unknownDiv.appendChild(newCourse);
+        }
+    </script>
+</body>
+</html>
+
+
+

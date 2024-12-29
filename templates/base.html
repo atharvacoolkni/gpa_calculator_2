@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SGPA Calculator{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Updated Navbar -->
+    <div class="navbar">
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('do_or_die_calculator') }}">Do or Die Calculator</a>
+        <a href="{{ url_for('about_us') }}">About Us</a>
+        <a href="{{ url_for('history') }}">View History</a>
+        
+    </div>
+
+    <!-- Header Section -->
+    <header>
+        SGPA Calculator
+    </header>
+
+    <!-- Content Block -->
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
