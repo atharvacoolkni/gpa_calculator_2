@@ -1,10 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import json
 import os
 
 app = Flask(__name__)
 
-HISTORY_FILE = 'history.json'
+# Secret key for session management
+app.secret_key = '688a27dfe4b578b7b435ba2adfb2f596'  # Replace with a strong, random string
 
 GRADE_POINTS = {
     "A": 10,
@@ -16,16 +17,12 @@ GRADE_POINTS = {
     "D": 4,
 }
 
-# Utility functions to load and save history
+# Utility functions to load and save history in the session
 def load_history():
-    if not os.path.exists(HISTORY_FILE):
-        return []  # Return empty list if file doesn't exist
-    with open(HISTORY_FILE, 'r') as file:
-        return json.load(file)
+    return session.get('history', [])
 
 def save_history(data):
-    with open(HISTORY_FILE, 'w') as file:
-        json.dump(data, file, indent=4)
+    session['history'] = data
 
 @app.route('/')
 def index():
@@ -50,6 +47,14 @@ def calculate():
     sgpa = total_grade_points / total_credits if total_credits != 0 else 0
     sgpa = round(sgpa, 2)
 
+    # Generate message based on SGPA
+    if sgpa < 8:
+        message = "chud gaye guru"
+    elif 8 <= sgpa < 9:
+        message = "this is considering A in free electives right ??"
+    else:
+        message = "don't be happy; it's just a guess, not your final GPA"
+
     # Save to history
     course_data = {
         'courses': [{'course': course, 'credit': credit, 'grade': grade} for course, credit, grade in zip(courses, credits, grades)],
@@ -60,7 +65,7 @@ def calculate():
     history_data = history_data[-3:]  # Keep only the last 3 entries
     save_history(history_data)
 
-    return render_template("index.html", sgpa=sgpa)
+    return render_template("index.html", sgpa=sgpa, message=message)
 
 @app.route('/history')
 def history():
@@ -111,8 +116,9 @@ def do_or_die_calculator():
                 "<li>You can use a popular trick to make this impossible task achievable. "
                 "<a href='https://www.amazon.in/Natural-Twisted-Macrame-Camping-Wedding/dp/B08H88DY8J' target='_blank'>Follow this tutorial</a>.</li>"
             )
-                
+
             return render_template('do_or_die_calculator.html', error_message=error_message)
+
         # Distribute the points across unknown courses
         required_grades = []
 
@@ -141,8 +147,6 @@ def do_or_die_calculator():
         return render_template('do_or_die_calculator.html', required_grades=required_grades)
 
     return render_template('do_or_die_calculator.html', required_grades=None)
-
-
 
 
 if __name__ == '__main__':

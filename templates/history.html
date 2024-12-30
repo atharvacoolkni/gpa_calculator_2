@@ -13,28 +13,32 @@
 
     <div class="container">
         <a class="back-button" href="{{ url_for('index') }}">← Back to Home</a>
+
         <div class="history-container">
-            {% for entry in history %}
-            <div class="history-entry">
-                <h3>SGPA: {{ entry['sgpa'] }}</h3>
-                <div class="courses">
-                    {% for course in entry['courses'] %}
-                    <div class="course-card">
-                        <div class="course-info">
-                            <span>Course: {{ course['course'] }}</span>
-                            <span>Credits: {{ course['credit'] }}</span>
-                            <span>Grade: {{ course['grade'] }}</span>
+            {% if history %}
+                {% for entry in history %}
+                    <div class="history-entry">
+                        <h3>SGPA: {{ entry['sgpa'] }}</h3>
+                        <div class="courses">
+                            {% for course in entry['courses'] %}
+                                <div class="course-card">
+                                    <div class="course-info">
+                                        <span><strong>Course:</strong> {{ course['course'] }}</span>
+                                        <span><strong>Credits:</strong> {{ course['credit'] }}</span>
+                                        <span><strong>Grade:</strong> {{ course['grade'] }}</span>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <p>No SGPA history found for this session.</p>
+            {% endif %}
         </div>
     </div>
 </body>
 </html>
-
 
 
 

@@ -4,6 +4,13 @@
 
 {% block content %}
 <h1>SGPA Calculator</h1>
+
+<!-- Tip of the Day Section -->
+<div id="tip-of-the-day" style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px; background-color: #f9f9f9;">
+    <h3>Tip of the Day:</h3>
+    <p id="tip"></p>
+</div>
+
 <form method="POST" action="/calculate">
     <div id="courses">
         <div class="course-row">
@@ -28,11 +35,36 @@
 
 {% if sgpa is not none %}
 <h2>SGPA: {{ sgpa }}</h2>
+<p>{{ message }}</p>
 {% endif %}
 
-<a href="{{ url_for('history') }}">View History</a>
+<!-- Displaying History -->
+
+
+<a href="{{ url_for('history') }}">View Full History</a>
 
 <script>
+    // Tips array
+    const tips = [
+        "Don't assume an A grade in free elective courses like Climate Change.",
+        "To calculate how much you need to achieve your goal, use the Do or Die Calculator.",
+        "Relax, you know reality.",
+        "Once a wise man said: 'Chud gaye guru.'"
+    ];
+
+    // Function to update the tip of the day
+    function updateTip() {
+        const tipElement = document.getElementById('tip');
+        const randomIndex = Math.floor(Math.random() * tips.length);
+        tipElement.innerHTML = `<strong>${tips[randomIndex]}</strong>`;
+    }
+
+    // Update tip every 5 seconds
+    setInterval(updateTip, 5000);
+
+    // Initialize the first tip
+    updateTip();
+
     function addCourse() {
         const coursesDiv = document.getElementById('courses');
         const newCourse = document.createElement('div');
